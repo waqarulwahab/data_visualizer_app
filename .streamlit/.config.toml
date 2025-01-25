@@ -1,0 +1,5 @@
+[theme]
+base="dark"
+primaryColor="#FF4B4B"  # Customize the primary color
+secondaryBackgroundColor="#262730"  # Customize the secondary background
+font="sans serif"  # You can choose between 'sans serif', 'monospace', or 'serif'
