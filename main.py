@@ -17,6 +17,12 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
+import sys
+
+# Import win32com only if running on Windows
+if sys.platform == "win32":
+    import win32com.client
+
 
 # Sidebar logo
 st.sidebar.image("LOGO.jpg", use_container_width=True)  # Update 'path_to_logo/logo.png' with the correct path
