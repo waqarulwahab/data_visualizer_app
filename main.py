@@ -6,7 +6,6 @@ import pandas as pd
 
 
 st.set_page_config(layout="wide")
-st.markdown("<h1 style='text-align: center;'>GraphX: A New Lens on Your Data</h1>", unsafe_allow_html=True)
 
 # Add custom CSS to hide Pro banner
 st.markdown("""
@@ -17,6 +16,22 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
+# Use custom CSS to set the sidebar width and make it non-resizable
+st.markdown(
+    """
+    <style>
+    .css-1d391kg {
+        width: 300px !important;  /* Set fixed width */
+        resize: none !important;  /* Disable resizing */
+    }
+    </style>
+    """, 
+    unsafe_allow_html=True
+)
+
+
+
+
 import sys
 
 # Import win32com only if running on Windows
@@ -25,7 +40,7 @@ if sys.platform == "win32":
 
 
 # Sidebar logo
-st.sidebar.image("LOGO.jpg", use_container_width=True)  # Update 'path_to_logo/logo.png' with the correct path
+st.sidebar.image("LOGO.jpg", width=300 ,use_container_width=False)  # Update 'path_to_logo/logo.png' with the correct path
 
 # File upload section in the sidebar
 uploaded_file = st.sidebar.file_uploader(
@@ -33,6 +48,12 @@ uploaded_file = st.sidebar.file_uploader(
     type=["csv", "xlsx"], 
     help="Drag and drop or click to upload a CSV or Excel file."
 )
+
+
+st.sidebar.page_link("main.py", label="Editor-1", icon="1️⃣")
+st.sidebar.page_link("pages/editor2.py", label="Editor-2", icon="2️⃣")
+
+
 
 # Define the import folder
 IMPORT_FOLDER = './data'

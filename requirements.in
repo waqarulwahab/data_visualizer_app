@@ -1,0 +1,5 @@
+mitosheet
+streamlit
+
+# Only install pywin32 on Windows
+pywin32; sys_platform == 'win32'
