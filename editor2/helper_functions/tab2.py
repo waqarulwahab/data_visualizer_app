@@ -17,6 +17,9 @@ from editor2.charts.pie_charts import pie_chart
 
 def interactive_charts_tab(updated_df):
 
+    # List to store generated charts
+    generated_charts = []
+
     multi_chart = st.toggle("Multi-Charts")
     if multi_chart:
 
@@ -31,7 +34,6 @@ def interactive_charts_tab(updated_df):
         with col4:
             y_axis = st.multiselect("Select Y-Axis", updated_df.columns)  # Multiple column selection for Y-Axis
 
-
         col1, col2, col3, col4, col5, col6 = st.columns([1,1,1,1,1,1])
         with col1:
             line_chart_selected      = st.checkbox("Line")
@@ -45,7 +47,6 @@ def interactive_charts_tab(updated_df):
             histogram_chart_selected = st.checkbox("Histogram")
         with col6:    
             boxplot_chart_selected   = st.checkbox("Boxplot")
-
 
         col1, col2, col3, col4, col5, col6 = st.columns([1,1,1,1,1,1])
         with col1:
@@ -62,29 +63,41 @@ def interactive_charts_tab(updated_df):
             heatmap_chart_selected   = st.checkbox("Heatmap")
 
         if line_chart_selected:
-            line_chart(updated_df, multi_chart, x_axis, y_axis, theme, color_scale)
+            fig = line_chart(updated_df, multi_chart, x_axis, y_axis, theme, color_scale)
+            generated_charts.append(fig)
         if bar_chart_selected:
-            bar_chart(updated_df, multi_chart, x_axis, y_axis, theme, color_scale)
+            fig = bar_chart(updated_df, multi_chart, x_axis, y_axis, theme, color_scale)
+            generated_charts.append(fig)
         if scatter_chart_selected:
-            scatter_plot(updated_df, multi_chart, x_axis, y_axis, theme, color_scale)
+            fig = scatter_plot(updated_df, multi_chart, x_axis, y_axis, theme, color_scale)
+            generated_charts.append(fig)
         if area_chart_selected:
-            area_chart(updated_df, multi_chart, x_axis, y_axis, theme, color_scale)
+            fig = area_chart(updated_df, multi_chart, x_axis, y_axis, theme, color_scale)
+            generated_charts.append(fig)
         if histogram_chart_selected:
-            histogram_chart(updated_df, multi_chart, x_axis, y_axis, theme, color_scale)
+            fig = histogram_chart(updated_df, multi_chart, x_axis, y_axis, theme, color_scale)
+            generated_charts.append(fig)
         if boxplot_chart_selected:
-            box_plot(updated_df, multi_chart, x_axis, y_axis, theme, color_scale)
+            fig = box_plot(updated_df, multi_chart, x_axis, y_axis, theme, color_scale)
+            generated_charts.append(fig)
         if violin_chart_selected:
-            violin_plot(updated_df, multi_chart, x_axis, y_axis, theme, color_scale)
+            fig = violin_plot(updated_df, multi_chart, x_axis, y_axis, theme, color_scale)
+            generated_charts.append(fig)
         if bubble_chart_selected:
-            bubble_chart(updated_df, multi_chart, x_axis, y_axis, theme, color_scale)
+            fig = bubble_chart(updated_df, multi_chart, x_axis, y_axis, theme, color_scale)
+            generated_charts.append(fig)
         if radar_chart_selected:
-            radar_chart(updated_df, multi_chart, x_axis, y_axis, theme, color_scale)
+            fig = radar_chart(updated_df, multi_chart, x_axis, y_axis, theme, color_scale)
+            generated_charts.append(fig)
         if sunburst_chart_selected:
-            sunburst_chart(updated_df, multi_chart, x_axis, y_axis, theme, color_scale)
+            fig = sunburst_chart(updated_df, multi_chart, x_axis, y_axis, theme, color_scale)
+            generated_charts.append(fig)
         if pie_chart_selected:
-            pie_chart(updated_df, multi_chart, x_axis, y_axis, theme, color_scale)
+            fig = pie_chart(updated_df, multi_chart, x_axis, y_axis, theme, color_scale)
+            generated_charts.append(fig)
         if heatmap_chart_selected:
-            heatmap_chart(updated_df, multi_chart, x_axis, y_axis, theme, color_scale)
+            fig = heatmap_chart(updated_df, multi_chart, x_axis, y_axis, theme, color_scale)
+            generated_charts.append(fig)
 
     else:
         st.subheader("Create Interactive Charts")
@@ -108,30 +121,44 @@ def interactive_charts_tab(updated_df):
         if chart_type == "None":
             st.info("Please select a chart type to proceed.")
         elif chart_type == "Line":
-            line_chart(updated_df)
+            fig = line_chart(updated_df)
+            generated_charts.append(fig)
         elif chart_type == "Bar": 
-            bar_chart(updated_df, multi_chart)
+            fig = bar_chart(updated_df, multi_chart)
+            generated_charts.append(fig)
         elif chart_type == "Scatter":
-            scatter_plot(updated_df)
+            fig = scatter_plot(updated_df)
+            generated_charts.append(fig)
         elif chart_type == "Area":
-            area_chart(updated_df)
+            fig = area_chart(updated_df)
+            generated_charts.append(fig)
         elif chart_type == "Boxplot":
-            box_plot(updated_df)
+             fig = box_plot(updated_df)
+             generated_charts.append(fig)
         elif chart_type == "Violin":
-            violin_plot(updated_df)
+            fig = violin_plot(updated_df)
+            generated_charts.append(fig)
         elif chart_type == "Bubble":
-            bubble_chart(updated_df)
+            fig = bubble_chart(updated_df)
+            generated_charts.append(fig)
         elif chart_type == "Histogram":
-            histogram_chart(updated_df)
+            fig = histogram_chart(updated_df)
+            generated_charts.append(fig)
         elif chart_type == "Heatmap":
-            heatmap_chart(updated_df)
+            fig = heatmap_chart(updated_df)
+            generated_charts.append(fig)
         elif chart_type == "Radar":
-            radar_chart(updated_df)
+            fig = radar_chart(updated_df)
+            generated_charts.append(fig)
         elif chart_type == "Sunburst":
-            sunburst_chart(updated_df)
+            fig = sunburst_chart(updated_df)
+            generated_charts.append(fig)
         elif chart_type == "Pie":
-            pie_chart(updated_df)
+            fig = pie_chart(updated_df)
+            generated_charts.append(fig)
 
+    # Return the list of generated charts
+    return generated_charts
 
 
     

@@ -6,7 +6,9 @@
         "dtypes",
         "getbuffer",
         "imshow",
+        "radialaxis",
         "scatterpolar",
-        "selectbox"
+        "selectbox",
+        "showlegend"
     ]
 }
