@@ -1,16 +1,17 @@
 import streamlit as st
 import plotly.express as px
 
-def sunburst_chart(updated_df):
-    # Layout for user input (X-Axis, Y-Axis, Color Theme)
-    col1, col2, col3 = st.columns([1, 1, 2])
-    
-    with col1:
-        theme = st.selectbox("Choose Chart Theme", ["plotly", "ggplot2", "seaborn", "simple_white", "none"], key="theme")
-    with col2:
-        x_axis = st.selectbox("Select X-Axis (Parent)", updated_df.columns)  # Single column selection for X-Axis
-    with col3:
-        y_axis = st.multiselect("Select Y-Axis (Child)", updated_df.columns)  # Multiple column selection for Y-Axis
+def sunburst_chart(updated_df, multi_chart, x_axis=None, y_axis=None, theme=None, color_scale=None):
+    if not multi_chart:
+        # Layout for user input (X-Axis, Y-Axis, Color Theme)
+        col1, col2, col3 = st.columns([1, 1, 2])
+        
+        with col1:
+            theme = st.selectbox("Choose Chart Theme", ["plotly", "ggplot2", "seaborn", "simple_white", "none"], key="theme")
+        with col2:
+            x_axis = st.selectbox("Select X-Axis (Parent)", updated_df.columns)  # Single column selection for X-Axis
+        with col3:
+            y_axis = st.multiselect("Select Y-Axis (Child)", updated_df.columns)  # Multiple column selection for Y-Axis
     
     # Check if at least one column is selected for Y-Axis
     if not y_axis:

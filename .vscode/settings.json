@@ -4,6 +4,7 @@
         "cividis",
         "colorscale",
         "dtypes",
+        "getbuffer",
         "imshow",
         "scatterpolar",
         "selectbox"

@@ -1,16 +1,17 @@
 import streamlit as st
 import plotly.express as px
 
-def heatmap_chart(updated_df):
-    # Layout for user input (Color Theme, Columns for Correlation, Color Scale)
-    col1, col2, col3 = st.columns([1, 1, 4])
-    
-    with col1:
-        theme = st.selectbox("Choose Chart Theme", ["plotly", "ggplot2", "seaborn", "simple_white", "none"], key="theme")
-    with col2:
-        color_scale = st.selectbox("Select Color Scale", ["Viridis", "Cividis", "Plasma", "Inferno", "Blues", "RdBu", "YlGnBu", "YlOrRd"])
-    with col3:
-        columns = st.multiselect("Select Columns for Correlation", updated_df.columns, default=updated_df.columns.tolist())  # Multiple columns selection for correlation
+def heatmap_chart(updated_df, multi_chart, x_axis=None, y_axis=None, theme=None, color_scale=None):
+    if not multi_chart:
+        # Layout for user input (Color Theme, Columns for Correlation, Color Scale)
+        col1, col2, col3 = st.columns([1, 1, 4])
+        
+        with col1:
+            theme = st.selectbox("Choose Chart Theme", ["plotly", "ggplot2", "seaborn", "simple_white", "none"], key="theme")
+        with col2:
+            color_scale = st.selectbox("Select Color Scale", ["Viridis", "Cividis", "Plasma", "Inferno", "Blues", "RdBu", "YlGnBu", "YlOrRd"])
+        with col3:
+            columns = st.multiselect("Select Columns for Correlation", updated_df.columns, default=updated_df.columns.tolist())  # Multiple columns selection for correlation
 
     # Check if selected columns are numeric (correlation only works with numeric data)
     numeric_columns = updated_df[columns].select_dtypes(include=['int64', 'float64']).columns

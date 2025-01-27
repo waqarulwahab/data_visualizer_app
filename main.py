@@ -49,11 +49,8 @@ uploaded_file = st.sidebar.file_uploader(
     help="Drag and drop or click to upload a CSV or Excel file."
 )
 
-
 st.sidebar.page_link("main.py", label="Editor-1", icon="1️⃣")
 st.sidebar.page_link("pages/editor2.py", label="Editor-2", icon="2️⃣")
-
-
 
 # Define the import folder
 IMPORT_FOLDER = './data'
