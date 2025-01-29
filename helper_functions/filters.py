@@ -1,9 +1,6 @@
 import streamlit as st
 import pandas as pd
 
-
-
-
 def filter_by_date(df):
     # Check for potential date columns
     date_columns = [
@@ -40,14 +37,8 @@ def filter_by_date(df):
             if start_date and end_date:
                 # Filter the DataFrame based on the selected date range
                 df = df[(df[date_column] >= start_date) & (df[date_column] <= end_date)]
-
     return df
     
-
-
-
-
-
 def refrence_pieces_filter(df):
     df = pd.DataFrame(df)
     # Check if the column exists
@@ -61,9 +52,7 @@ def refrence_pieces_filter(df):
         
         if selected_references:
             df = df[df['Référence Pièce(s)'].isin(selected_references)]
-
     return df
-
 
 
 def filter_by_time(df):

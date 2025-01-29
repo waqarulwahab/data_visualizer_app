@@ -2,6 +2,7 @@
     "cSpell.words": [
         "aggrid",
         "arrowcolor",
+        "barmode",
         "cividis",
         "colorscale",
         "dropna",
@@ -18,9 +19,16 @@
         "refrence",
         "scatterpolar",
         "selectbox",
+        "showarrow",
+        "showgrid",
         "showlegend",
+        "tickmode",
+        "ticktext",
+        "tickvals",
         "xanchor",
         "xaxes",
-        "yaxes"
+        "xaxis",
+        "yaxes",
+        "yaxis"
     ]
 }

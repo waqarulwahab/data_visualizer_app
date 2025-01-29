@@ -1,8 +1,7 @@
 import streamlit as st
-from mitosheet.streamlit.v1 import spreadsheet
 import os
-import pandas as pd
-import sys
+import time
+from helper_functions.utils import display_logo, page_navigations
 
 st.set_page_config(layout="wide")
 
@@ -15,47 +14,70 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# Sidebar logo
-st.sidebar.image("LOGO.jpg", width=300, use_container_width=False)
-
-# File upload section
-uploaded_file = st.sidebar.file_uploader(
-    "Upload your CSV or Excel file", 
-    type=["csv", "xls", "xlsx"], 
-    help="Drag and drop or click to upload a CSV or Excel file."
-)
-
-st.sidebar.page_link("main.py", label="Editor-1", icon="1️⃣")
-st.sidebar.page_link("pages/editor2.py", label="Editor-2", icon="2️⃣")
-st.sidebar.page_link("pages/editor3.py", label="Editor-3", icon="3️⃣")
+# Display logo and navigation
+display_logo()
+page_navigations()
 
 # Define the import folder
 IMPORT_FOLDER = './data'
 if not os.path.exists(IMPORT_FOLDER):
     os.makedirs(IMPORT_FOLDER)
 
-# Function to remove old files before saving a new one
-def clear_import_folder(folder):
-    for file_name in os.listdir(folder):
-        file_path = os.path.join(folder, file_name)
-        try:
-            if os.path.isfile(file_path):
-                os.remove(file_path)  # Delete old files
-        except Exception as e:
-            st.error(f"Error deleting {file_name}: {e}")
+# Main title
+st.title("📊 Data Analysis & Visualization Platform")
 
-# Check if a file is uploaded
-if uploaded_file is not None:
-    # Clear old files before saving a new one
-    clear_import_folder(IMPORT_FOLDER)
+# Section: About the Application
+st.markdown("""
+### **About This Application**
+This platform is designed to help users **analyze and visualize their data with ease**. 
+It provides **interactive charts, advanced analytics, and insightful reports** to assist in **data-driven decision-making**.
 
-    file_path = os.path.join(IMPORT_FOLDER, uploaded_file.name)
-    
-    # Save the new file
-    with open(file_path, "wb") as f:
-        f.write(uploaded_file.getbuffer())
+**Features:**
+- 📂 **Upload & Process CSV/Excel Files**
+- 📈 **Generate Interactive Charts**
+- 🛠️ **Identify Trends & Anomalies**
+- 🔍 **Extract Insights for Better Decision-Making**
+- ⚡ **Fast & User-Friendly Interface**
+""")
 
-    st.success(f"File '{uploaded_file.name}' has been uploaded and previous files have been removed.")
+# Section: Instructions for Users
+st.markdown("""
+### **How to Use This Platform?**
+1. **Upload Your Data** 📂  
+   - Click on the **"Upload your CSV or Excel file"** button in the sidebar.
+   - Supported formats: **CSV, XLS, XLSX**.
+   - Ensure the data has **clear headers** and structured format.
 
-# Load MitoSheet (it will automatically detect only the latest file)
-new_dfs, code = spreadsheet(import_folder=IMPORT_FOLDER)
+2. **Analyze Your Data** 📊  
+   - After uploading, explore **dynamic visualizations**.
+   - Choose from **line charts, bar charts, scatter plots, box plots**, and more.
+
+3. **Customize & Export** 🛠️  
+   - Customize charts with **different themes, colors, and axis selections**.
+   - Export analysis results for **further reporting and presentations**.
+
+4. **Gain Insights** 🔍  
+   - Identify **trends, patterns, and outliers**.
+   - Make **data-driven decisions** with confidence.
+""")
+
+# Sidebar: File upload section
+st.sidebar.header("📂 Upload Your Data")
+uploaded_file = st.sidebar.file_uploader(
+    "Upload your CSV or Excel file",
+    type=["csv", "xls", "xlsx"],
+    help="Drag and drop or click to upload a CSV or Excel file."
+)
+
+if uploaded_file:
+    st.sidebar.success("✅ File uploaded successfully!")
+    time.sleep(1)  # Wait for 3 seconds
+    st.switch_page("pages/editor1.py")
+
+# Final Section: Additional Support
+st.markdown("""
+---
+### **Need Help?**
+📧 **Support Email:** support@example.com  
+💡 **Tips:** Ensure your dataset is **clean and formatted** before analysis for better insights.
+""")

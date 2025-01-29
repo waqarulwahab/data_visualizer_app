@@ -9,9 +9,7 @@ from editor2.helper_functions.tab3 import export_graphs
 from helper_functions.filters import refrence_pieces_filter
 from helper_functions.filters import filter_by_time
 from helper_functions.filters import filter_by_date
-from helper_functions.page_navigations import page_navigations
-from helper_functions.load_file import load_file
-from helper_functions.logo import display_logo
+from helper_functions.utils import load_file, display_logo, page_navigations
 
 
 # Custom CSS for styling and hiding the Mito banner
@@ -100,8 +98,6 @@ if uploaded_file:
                 export_graphs(generated_figures)
             except KeyError as e:
                 st.error(f"Error: Column {e} not found in the dataset.")
-
-
 else:
     st.error("No files found in the data folder.")
 
