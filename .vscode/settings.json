@@ -1,14 +1,26 @@
 {
     "cSpell.words": [
         "aggrid",
+        "arrowcolor",
         "cividis",
         "colorscale",
+        "dropna",
         "dtypes",
         "getbuffer",
         "imshow",
+        "isin",
+        "mitosheet",
+        "navigations",
+        "Pièce",
+        "Pièces",
         "radialaxis",
+        "référence",
+        "refrence",
         "scatterpolar",
         "selectbox",
-        "showlegend"
+        "showlegend",
+        "xanchor",
+        "xaxes",
+        "yaxes"
     ]
 }

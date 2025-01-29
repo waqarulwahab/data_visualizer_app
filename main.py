@@ -2,12 +2,11 @@ import streamlit as st
 from mitosheet.streamlit.v1 import spreadsheet
 import os
 import pandas as pd
-
-
+import sys
 
 st.set_page_config(layout="wide")
 
-# Add custom CSS to hide Pro banner
+# Hide MitoSheet Pro Banner
 st.markdown("""
     <style>
         .mito-pro-banner {
@@ -16,61 +15,47 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# Use custom CSS to set the sidebar width and make it non-resizable
-st.markdown(
-    """
-    <style>
-    .css-1d391kg {
-        width: 300px !important;  /* Set fixed width */
-        resize: none !important;  /* Disable resizing */
-    }
-    </style>
-    """, 
-    unsafe_allow_html=True
-)
-
-
-
-
-import sys
-
-# Import win32com only if running on Windows
-if sys.platform == "win32":
-    import win32com.client
-
-
 # Sidebar logo
-st.sidebar.image("LOGO.jpg", width=300 ,use_container_width=False)  # Update 'path_to_logo/logo.png' with the correct path
+st.sidebar.image("LOGO.jpg", width=300, use_container_width=False)
 
-# File upload section in the sidebar
+# File upload section
 uploaded_file = st.sidebar.file_uploader(
     "Upload your CSV or Excel file", 
-    type=["csv", "xlsx"], 
+    type=["csv", "xls", "xlsx"], 
     help="Drag and drop or click to upload a CSV or Excel file."
 )
 
 st.sidebar.page_link("main.py", label="Editor-1", icon="1️⃣")
 st.sidebar.page_link("pages/editor2.py", label="Editor-2", icon="2️⃣")
+st.sidebar.page_link("pages/editor3.py", label="Editor-3", icon="3️⃣")
 
 # Define the import folder
 IMPORT_FOLDER = './data'
-
-# Ensure the folder exists
 if not os.path.exists(IMPORT_FOLDER):
     os.makedirs(IMPORT_FOLDER)
 
+# Function to remove old files before saving a new one
+def clear_import_folder(folder):
+    for file_name in os.listdir(folder):
+        file_path = os.path.join(folder, file_name)
+        try:
+            if os.path.isfile(file_path):
+                os.remove(file_path)  # Delete old files
+        except Exception as e:
+            st.error(f"Error deleting {file_name}: {e}")
+
 # Check if a file is uploaded
 if uploaded_file is not None:
-    # Save the uploaded file to the data folder
+    # Clear old files before saving a new one
+    clear_import_folder(IMPORT_FOLDER)
+
     file_path = os.path.join(IMPORT_FOLDER, uploaded_file.name)
+    
+    # Save the new file
     with open(file_path, "wb") as f:
         f.write(uploaded_file.getbuffer())
-    
-    st.success(f"File '{uploaded_file.name}' saved to {IMPORT_FOLDER}")
 
-    # Automatically analyze the uploaded file with MitoSheet
-    new_dfs, code = spreadsheet(import_folder=IMPORT_FOLDER)  # The uploaded file will be available in MitoSheet
-else:
-    # Use the spreadsheet function with the import_folder parameter
-    new_dfs, code = spreadsheet(import_folder=IMPORT_FOLDER)
+    st.success(f"File '{uploaded_file.name}' has been uploaded and previous files have been removed.")
 
+# Load MitoSheet (it will automatically detect only the latest file)
+new_dfs, code = spreadsheet(import_folder=IMPORT_FOLDER)
