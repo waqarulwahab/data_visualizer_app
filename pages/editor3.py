@@ -99,5 +99,5 @@ if uploaded_file:
             except KeyError as e:
                 st.error(f"Error: Column {e} not found in the dataset.")
 else:
-    st.error("No files found in the data folder.")
+    st.info("Please upload a file to get started.")
 

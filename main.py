@@ -1,7 +1,7 @@
 import streamlit as st
 import os
 import time
-from helper_functions.utils import display_logo, page_navigations
+from helper_functions.utils import display_logo, page_navigations, clear_import_folder
 
 st.set_page_config(layout="wide")
 
@@ -70,6 +70,11 @@ uploaded_file = st.sidebar.file_uploader(
 )
 
 if uploaded_file:
+    clear_import_folder(IMPORT_FOLDER)
+    file_path = os.path.join(IMPORT_FOLDER, uploaded_file.name)
+    # Save the new file
+    with open(file_path, "wb") as f:
+        f.write(uploaded_file.getbuffer())
     st.sidebar.success("✅ File uploaded successfully!")
     time.sleep(1)  # Wait for 3 seconds
     st.switch_page("pages/editor1.py")

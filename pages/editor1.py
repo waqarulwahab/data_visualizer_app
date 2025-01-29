@@ -60,3 +60,5 @@ if uploaded_file:
         df = sheets[selected_sheet]
 
     new_dfs, code = spreadsheet(df)
+else:
+    st.info("Please upload a file to get started.")
