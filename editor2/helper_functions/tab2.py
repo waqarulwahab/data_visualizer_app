@@ -173,9 +173,9 @@ def interactive_charts_tab_editor3(updated_df):
     col1, col2, col3, col4 = st.columns([1, 1, 1, 2])
     
     with col1:
-        theme = st.selectbox("Choose Chart Theme", ["plotly", "ggplot2", "seaborn", "simple_white", "none"], key="theme")
+        theme = st.selectbox("Choose Chart Theme", ["none", "plotly", "ggplot2", "seaborn", "simple_white"], key="theme")
     with col2:
-        color_scale = st.selectbox("Choose Color Scale", ["Viridis", "Cividis", "Plasma", "Inferno", "Jet", "YlGnBu"], key="color_scale")    
+        color_scale = st.selectbox("Choose Color Scale", ["Rainbow", "Turbo", "Magma", "Viridis", "Cividis", "Plasma", "Inferno", "Jet", "YlGnBu"], key="color_scale")    
     with col3:
         x_axis = st.selectbox("Select X-Axis", updated_df.columns)  # Single column selection for X-Axis
     with col4:

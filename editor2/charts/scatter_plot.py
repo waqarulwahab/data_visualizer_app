@@ -93,6 +93,7 @@ def scatter_plot(updated_df, multi_chart, x_axis=None, y_axis=None, theme=None, 
 
 
 
+
 def scatter_plot_3rd(updated_df, multi_chart=False, x_axis=None, y_axis=None, theme=None, color_scale=None):
     # Validate input
     if not x_axis or not y_axis:
@@ -129,59 +130,6 @@ def scatter_plot_3rd(updated_df, multi_chart=False, x_axis=None, y_axis=None, th
             )
         )
 
-    # Add horizontal min/max lines & annotations for each column
-    for i, col in enumerate(y_axis):
-        max_val = updated_df[col].max()
-        min_val = updated_df[col].min()
-
-        # Add max value line (Horizontal line)
-        fig.add_shape(
-            type="line",
-            x0=updated_df[x_axis].min(),
-            x1=updated_df[x_axis].max(),
-            y0=max_val,
-            y1=max_val,
-            line=dict(color="red", width=2, dash="dash"),
-        )
-
-        # Add min value line (Horizontal line)
-        fig.add_shape(
-            type="line",
-            x0=updated_df[x_axis].min(),
-            x1=updated_df[x_axis].max(),
-            y0=min_val,
-            y1=min_val,
-            line=dict(color="blue", width=2, dash="dash"),
-        )
-
-        # Add max value annotation
-        fig.add_annotation(
-            x=updated_df[x_axis].max(),
-            y=max_val,
-            text=f"Max {col}: {max_val}",
-            showarrow=True,
-            arrowhead=2,
-            ax=20,
-            ay=-30,
-            font=dict(size=10, color="red"),
-            arrowcolor="red",
-            align="left",
-        )
-
-        # Add min value annotation
-        fig.add_annotation(
-            x=updated_df[x_axis].max(),
-            y=min_val,
-            text=f"Min {col}: {min_val}",
-            showarrow=True,
-            arrowhead=2,
-            ax=20,
-            ay=30,
-            font=dict(size=10, color="blue"),
-            arrowcolor="blue",
-            align="left",
-        )
-
     # Get the reference filter and date
     dates = updated_df['Date'].unique()[0]
     reference_filter = updated_df['Référence Pièce(s)'].unique()[0]
@@ -205,6 +153,38 @@ def scatter_plot_3rd(updated_df, multi_chart=False, x_axis=None, y_axis=None, th
             yaxis_title="Values",
         )
 
-    # Display the chart
-    st.plotly_chart(fig, use_container_width=True)
+    # Enable all Plotly interactive features
+    config = {
+        "scrollZoom": True,  # Allow zooming by scrolling
+        "displayModeBar": True,  # Show the mode bar
+        "modeBarButtonsToAdd": [
+            "drawline",  # Add line drawing
+            "drawopenpath",  # Add open path drawing
+            "drawclosedpath",  # Add closed path drawing
+            "drawcircle",  # Add circle drawing
+            "drawrect",  # Add rectangle drawing
+            "eraseshape",  # Add shape eraser
+            "hoverClosestCartesian",  # Hover to show closest data points
+            "hoverCompareCartesian",  # Compare data on hover
+            "select2d",  # 2D selection
+            "lasso2d",  # Lasso selection
+            "zoomIn2d",  # Zoom in
+            "zoomOut2d",  # Zoom out
+            "autoScale2d",  # Auto-scale
+            "resetScale2d",  # Reset scale
+            "toImage",  # Download as image
+            "toggleSpikelines",  # Toggle spike lines
+            "resetViews",  # Reset views
+            "hoverClosest3d",  # Hover closest in 3D
+            "hoverClosestGeo",  # Hover closest in geo charts
+            "hoverClosestGl2d",  # Hover closest in WebGL 2D
+            "hoverClosestPie",  # Hover closest in pie charts
+        ],
+        "displaylogo": False,  # Hide the Plotly logo
+        "responsive": True,  # Make the chart responsive
+    }
+
+    # Display the chart with all interactive features
+    st.plotly_chart(fig, use_container_width=True, config=config)
     return fig  # Return the figure for export or further use
+
