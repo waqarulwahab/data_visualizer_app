@@ -30,6 +30,12 @@ def page_navigations():
         st.page_link("pages/editor3.py", label="Editor-3", icon="3️⃣")
 
 
+def normalize_column_names(df):
+    """Convert all column names to lowercase."""
+    df.columns = df.columns.str.lower()
+    return df
+
+
 # Function to remove old files before saving a new one
 def clear_import_folder(folder):
     for file_name in os.listdir(folder):

@@ -88,23 +88,28 @@ def line_chart_3rd(updated_df, x_axis=None, y_axis=None, theme=None, color_scale
         )
 
     # Get the reference filter and date
-    dates = updated_df['Date'].unique()[0]
-    refrence_filter = updated_df['Référence Pièce(s)'].unique()[0]
-
-    if len(updated_df['Référence Pièce(s)'].unique()) > 1:
+    dates = None
+    # Get the reference filter and date
+    if 'date' in updated_df.columns:
+        dates = updated_df['date'].unique()[0]
+    if 'Référence Pièce(s)' in updated_df.columns:
+        refrence_filter = updated_df['Référence Pièce(s)'].unique()[0]
+    
+        if len(updated_df['Référence Pièce(s)'].unique()) == 1:
+            # Update the layout with titles and secondary y-axis labels
+            fig.update_layout(
+                title=f"{x_axis} vs {', '.join(y_axis)}  ({dates} - {refrence_filter}) ",
+                template=theme,
+                colorway=px.colors.sequential.__getattribute__(color_scale) if color_scale else None
+            )
+    else:
         # Update the layout with titles and secondary y-axis labels
         fig.update_layout(
             title=f"{x_axis} vs {', '.join(y_axis)}  ({dates}) ",
             template=theme,
             colorway=px.colors.sequential.__getattribute__(color_scale) if color_scale else None
-        )        
-    else:
-        # Update the layout with titles and secondary y-axis labels
-        fig.update_layout(
-            title=f"{x_axis} vs {', '.join(y_axis)}  ({dates} - {refrence_filter}) ",
-            template=theme,
-            colorway=px.colors.sequential.__getattribute__(color_scale) if color_scale else None
-        )
+        )   
+
     
     # Update y-axes properties (for better visualization)
     fig.update_yaxes(title_text=y_axis[0], secondary_y=False)

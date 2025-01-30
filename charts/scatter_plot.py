@@ -131,22 +131,25 @@ def scatter_plot_3rd(updated_df, x_axis=None, y_axis=None, theme=None, color_sca
         )
 
     # Get the reference filter and date
-    dates = updated_df['Date'].unique()[0]
-    reference_filter = updated_df['Référence Pièce(s)'].unique()[0]
-
-    if len(updated_df['Référence Pièce(s)'].unique()) > 1:
+    dates = None
+    # Get the reference filter and date
+    if 'date' in updated_df.columns:
+        dates = updated_df['date'].unique()[0]
+    if 'Référence Pièce(s)' in updated_df.columns:
+        refrence_filter = updated_df['Référence Pièce(s)'].unique()[0]
         # Update the layout with titles
         fig.update_layout(
-            title=f"Scatter Plot for {', '.join(y_axis)} vs {x_axis}  ({dates}) ",
+            title=f"Scatter Plot for {', '.join(y_axis)} vs {x_axis}  ({dates} - {refrence_filter}) ",
             template=theme,
             colorway=px.colors.sequential.__getattribute__(color_scale) if color_scale else None,
             xaxis_title=x_axis,
             yaxis_title="Values",
         )
+
     else:
         # Update the layout with titles
         fig.update_layout(
-            title=f"Scatter Plot for {', '.join(y_axis)} vs {x_axis}  ({dates} - {reference_filter}) ",
+            title=f"Scatter Plot for {', '.join(y_axis)} vs {x_axis}  ({dates}) ",
             template=theme,
             colorway=px.colors.sequential.__getattribute__(color_scale) if color_scale else None,
             xaxis_title=x_axis,

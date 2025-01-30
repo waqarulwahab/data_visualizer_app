@@ -42,8 +42,8 @@ def filter_by_date(df):
 def refrence_pieces_filter(df):
     df = pd.DataFrame(df)
     # Check if the column exists
-    if 'Référence Pièce(s)' in df.columns:
-        unique_references = df['Référence Pièce(s)'].dropna().unique()  # Drop NaN values
+    if 'référence pièce(s)' in df.columns:
+        unique_references = df['référence pièce(s)'].dropna().unique()  # Drop NaN values
         selected_references = st.sidebar.multiselect(
             "Filter by Référence Pièces",
             options=unique_references,
@@ -51,21 +51,21 @@ def refrence_pieces_filter(df):
         )
         
         if selected_references:
-            df = df[df['Référence Pièce(s)'].isin(selected_references)]
+            df = df[df['référence pièce(s)'].isin(selected_references)]
     return df
 
 
 def filter_by_time(df):
-    if 'Time' in df.columns:
+    if 'time' in df.columns:
         # Convert the 'Time' column to datetime format to extract hour
-        df['Time'] = pd.to_datetime(df['Time'], format='%H:%M:%S').dt.time
+        df['time'] = pd.to_datetime(df['time'], format='%H:%M:%S').dt.time
 
         # Extract the hour from the 'Time' column
-        df['Hour'] = pd.to_datetime(df['Time'].astype(str), format='%H:%M:%S').dt.hour
+        df['hour'] = pd.to_datetime(df['time'].astype(str), format='%H:%M:%S').dt.hour
 
         # Get the dynamic default start and end hours from the data
-        min_hour = df['Hour'].min()  # Minimum hour in the dataset
-        max_hour = df['Hour'].max()  # Maximum hour in the dataset
+        min_hour = df['hour'].min()  # Minimum hour in the dataset
+        max_hour = df['hour'].max()  # Maximum hour in the dataset
 
         # Sidebar inputs with dynamic default values
         col1, col2 = st.sidebar.columns([1, 1])
@@ -75,6 +75,6 @@ def filter_by_time(df):
             end_hour = st.number_input("End Hour", min_value=1, max_value=24, step=1, value=max_hour)  # Default to max_hour
 
         # Filter data based on start_hour and end_hour
-        df = df[(df['Hour'] >= start_hour) & (df['Hour'] <= end_hour)]
+        df = df[(df['hour'] >= start_hour) & (df['hour'] <= end_hour)]
 
     return df

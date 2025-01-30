@@ -194,6 +194,7 @@ def interactive_charts_tab_editor3(updated_df):
         generated_charts.append(fig)
     if bar_chart_selected:
         fig = bar_chart_3rd(updated_df, x_axis, y_axis, theme, color_scale)
+        generated_charts.append(fig)
     if box_chart_selected:
         fig = box_plot_3rd(updated_df, x_axis, y_axis, theme, color_scale)
         generated_charts.append(fig)

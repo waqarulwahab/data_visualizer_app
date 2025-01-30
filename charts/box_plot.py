@@ -99,27 +99,32 @@ def box_plot_3rd(updated_df, x_axis=None, y_axis=None, theme=None, color_scale=N
             )
         )
 
-    # Get the reference filter and date
-    dates = updated_df['Date'].unique()[0]
-    reference_filter = updated_df['Référence Pièce(s)'].unique()[0]
 
-    if len(updated_df['Référence Pièce(s)'].unique()) > 1:
-        # Update the layout with titles
-        fig.update_layout(
-            title=f"Box Plot for {', '.join(y_axis)}  ({dates}) ",
-            template=theme,
-            colorway=px.colors.sequential.__getattribute__(color_scale) if color_scale else None,
-            xaxis=dict(
-                tickmode='array',
-                tickvals=x_positions,
-                ticktext=y_axis,
-                title="",
-            ),
-        )
+
+    # Get the reference filter and date
+    dates = None
+    # Get the reference filter and date
+    if 'date' in updated_df.columns:
+        dates = updated_df['date'].unique()[0]
+    if 'Référence Pièce(s)' in updated_df.columns:
+        refrence_filter = updated_df['Référence Pièce(s)'].unique()[0]
+        if len(updated_df['Référence Pièce(s)'].unique()) == 1:
+            # Update the layout with titles
+            fig.update_layout(
+                title=f"Box Plot for {', '.join(y_axis)}  ({dates} - {refrence_filter}) ",
+                template=theme,
+                colorway=px.colors.sequential.__getattribute__(color_scale) if color_scale else None,
+                xaxis=dict(
+                    tickmode='array',
+                    tickvals=x_positions,
+                    ticktext=y_axis,
+                    title="",
+                ),
+            )
     else:
         # Update the layout with titles
         fig.update_layout(
-            title=f"Box Plot for {', '.join(y_axis)}  ({dates} - {reference_filter}) ",
+            title=f"Box Plot for {', '.join(y_axis)}  ({dates}) ",
             template=theme,
             colorway=px.colors.sequential.__getattribute__(color_scale) if color_scale else None,
             xaxis=dict(

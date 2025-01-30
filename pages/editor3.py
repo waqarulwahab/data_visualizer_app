@@ -9,7 +9,7 @@ from helper_functions.tab3 import export_graphs
 from helper_functions.filters import refrence_pieces_filter
 from helper_functions.filters import filter_by_time
 from helper_functions.filters import filter_by_date
-from helper_functions.utils import load_file, display_logo, page_navigations
+from helper_functions.utils import load_file, display_logo, page_navigations, normalize_column_names
 
 
 # Custom CSS for styling and hiding the Mito banner
@@ -61,6 +61,7 @@ if uploaded_file:
     else:
         sheets = pd.read_excel(uploaded_file, sheet_name=None)
 
+    
     # Sidebar for Sheet Selection
     with st.sidebar:
         sheet_names = list(sheets.keys())
@@ -69,6 +70,7 @@ if uploaded_file:
 
     df.columns = [str(col).strip() for col in df.columns]
 
+    df = normalize_column_names(df)
     df = filter_by_date(df)
     df = filter_by_time(df)
     df = refrence_pieces_filter(df)
