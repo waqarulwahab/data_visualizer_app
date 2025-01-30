@@ -5,6 +5,8 @@
         "barmode",
         "boxmode",
         "cividis",
+        "coloraxis",
+        "colorbar",
         "colorscale",
         "Coolwarm",
         "displaylogo",

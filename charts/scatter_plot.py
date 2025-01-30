@@ -94,7 +94,7 @@ def scatter_plot(updated_df, multi_chart, x_axis=None, y_axis=None, theme=None, 
 
 
 
-def scatter_plot_3rd(updated_df, multi_chart=False, x_axis=None, y_axis=None, theme=None, color_scale=None):
+def scatter_plot_3rd(updated_df, x_axis=None, y_axis=None, theme=None, color_scale=None):
     # Validate input
     if not x_axis or not y_axis:
         st.warning("Please select valid X and Y axes to generate a chart.")

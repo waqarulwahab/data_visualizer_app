@@ -1,9 +1,9 @@
 import streamlit as st
 import pandas as pd
 
-from editor2.helper_functions.tab1 import viewer_editor_tab
-from editor2.helper_functions.tab2 import interactive_charts_tab
-from editor2.helper_functions.tab3 import export_graphs
+from helper_functions.tab1 import viewer_editor_tab
+from helper_functions.tab2 import interactive_charts_tab
+from helper_functions.tab3 import export_graphs
 
 from helper_functions.filters import refrence_pieces_filter
 from helper_functions.filters import filter_by_time

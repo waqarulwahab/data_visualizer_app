@@ -1,18 +1,16 @@
 import streamlit as st
-import pandas as pd
-import plotly.express as px
-from editor2.charts.line_chart import line_chart, line_chart_3rd
-from editor2.charts.bar_chart import bar_chart, bar_chart_3rd
-from editor2.charts.box_plot import box_plot, box_plot_3rd
-from editor2.charts.scatter_plot import scatter_plot, scatter_plot_3rd
-from editor2.charts.area_chart import area_chart
-from editor2.charts.violin_plot import violin_plot
-from editor2.charts.bubble_chart import bubble_chart
-from editor2.charts.histogram_chart import histogram_chart
-from editor2.charts.heatmap_chart import heatmap_chart
-from editor2.charts.radar_chart import radar_chart
-from editor2.charts.sunburst_chart import sunburst_chart
-from editor2.charts.pie_charts import pie_chart
+from charts.line_chart import line_chart, line_chart_3rd
+from charts.bar_chart import bar_chart, bar_chart_3rd
+from charts.box_plot import box_plot, box_plot_3rd
+from charts.scatter_plot import scatter_plot, scatter_plot_3rd
+from charts.area_chart import area_chart
+from charts.violin_plot import violin_plot
+from charts.bubble_chart import bubble_chart
+from charts.histogram_chart import histogram_chart
+from charts.heatmap_chart import heatmap_chart
+from charts.radar_chart import radar_chart
+from charts.sunburst_chart import sunburst_chart
+from charts.pie_charts import pie_chart
 
 
 def interactive_charts_tab(updated_df):
@@ -191,17 +189,16 @@ def interactive_charts_tab_editor3(updated_df):
     with col4:
         scatter_chart_selected   = st.checkbox("Scatter")
     
-    multi_chart = None
     if line_chart_selected:
-        fig = line_chart_3rd(updated_df, multi_chart, x_axis, y_axis, theme, color_scale)
+        fig = line_chart_3rd(updated_df, x_axis, y_axis, theme, color_scale)
         generated_charts.append(fig)
     if bar_chart_selected:
-        fig = bar_chart_3rd(updated_df, multi_chart, x_axis, y_axis, theme, color_scale)
+        fig = bar_chart_3rd(updated_df, x_axis, y_axis, theme, color_scale)
     if box_chart_selected:
-        fig = box_plot_3rd(updated_df, multi_chart, x_axis, y_axis, theme, color_scale)
+        fig = box_plot_3rd(updated_df, x_axis, y_axis, theme, color_scale)
         generated_charts.append(fig)
     if scatter_chart_selected:
-        fig = scatter_plot_3rd(updated_df, multi_chart, x_axis, y_axis, theme, color_scale)
+        fig = scatter_plot_3rd(updated_df,  x_axis, y_axis, theme, color_scale)
         generated_charts.append(fig)
 
     # Return the list of generated charts

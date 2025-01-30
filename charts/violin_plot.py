@@ -1,6 +1,5 @@
 import streamlit as st
 import plotly.express as px
-import pandas as pd
 
 def violin_plot(updated_df, multi_chart, x_axis=None, y_axis=None, theme=None, color_scale=None):
     if not multi_chart:

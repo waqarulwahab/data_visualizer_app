@@ -3,6 +3,7 @@ import plotly.express as px
 import plotly.express as px
 import plotly.graph_objects as go
 
+
 def box_plot(updated_df, multi_chart, x_axis=None, y_axis=None, theme=None, color_scale=None):
     if not multi_chart:
         # Layout for user input (X-Axis, Y-Axis, Color Theme)
@@ -57,11 +58,9 @@ def box_plot(updated_df, multi_chart, x_axis=None, y_axis=None, theme=None, colo
     # Return the chart for potential export
     return chart
 
-import streamlit as st
-import plotly.graph_objects as go
-import plotly.express as px
 
-def box_plot_3rd(updated_df, multi_chart=False, x_axis=None, y_axis=None, theme=None, color_scale=None):
+
+def box_plot_3rd(updated_df, x_axis=None, y_axis=None, theme=None, color_scale=None):
     # Validate input
     if not x_axis or not y_axis:
         st.warning("Please select valid X and Y axes to generate a chart.")
