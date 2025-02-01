@@ -1,6 +1,7 @@
 import os
 import streamlit as st
 from pathlib import Path
+import pandas as pd
 
 def display_logo():
     # Sidebar logo
@@ -14,9 +15,22 @@ def load_file():
     files = [file for file in data_folder.iterdir() if file.is_file()]
 
     # Select the first file if files exist
-    uploaded_file = files[0] if files else None  # This is a Path object
+    # uploaded_file = files[0] if files else None  # This is a Path object
 
-    return uploaded_file
+    return files
+
+def process_file(file_path):
+    file_extension = file_path.suffix.lower()  # Get the file extension in lowercase
+
+    # Check if it's a CSV file and read it
+    if file_extension == ".csv":
+        df = pd.read_csv(file_path)
+        sheets = {"Sheet1": df}
+    else:
+        # Read all sheets from an Excel file
+        sheets = pd.read_excel(file_path, sheet_name=None)
+
+    return sheets
 
 def page_navigations():
     col1, col2, col3, col4, col5, col6 = st.columns([1,1,1,1,3,3])

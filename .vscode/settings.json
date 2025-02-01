@@ -3,6 +3,9 @@
         "aggrid",
         "arrowcolor",
         "barmode",
+        "bordercolor",
+        "borderpad",
+        "borderwidth",
         "boxmode",
         "cividis",
         "coloraxis",
@@ -10,6 +13,7 @@
         "colorscale",
         "Coolwarm",
         "displaylogo",
+        "dragmode",
         "drawcircle",
         "drawclosedpath",
         "drawline",
@@ -25,6 +29,7 @@
         "isin",
         "mitosheet",
         "navigations",
+        "newshape",
         "Pièce",
         "Pièces",
         "radialaxis",
@@ -45,6 +50,7 @@
         "xaxes",
         "xaxis",
         "yaxes",
-        "yaxis"
+        "yaxis",
+        "yref"
     ]
 }

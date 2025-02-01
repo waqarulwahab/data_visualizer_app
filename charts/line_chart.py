@@ -45,6 +45,15 @@ def line_chart(updated_df, multi_chart=False, x_axis=None, y_axis=None, theme=No
 
 
 
+import streamlit.components.v1 as components
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
+import streamlit as st
+import pandas as pd
+import numpy as np
+import plotly.express as px
+
+
 
 def line_chart_3rd(updated_df, x_axis=None, y_axis=None, theme=None, color_scale=None):
     # Validate input

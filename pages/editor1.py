@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 from mitosheet.streamlit.v1 import spreadsheet
-from helper_functions.utils import load_file, display_logo, page_navigations
+from helper_functions.utils import load_file, display_logo, page_navigations, process_file
 
 
 # Custom CSS for styling and hiding the Mito banner
@@ -41,23 +41,28 @@ page_navigations()
 
 
 
-uploaded_file = load_file()
+uploaded_files = load_file()
 
-if uploaded_file:
-    file_extension = uploaded_file.suffix.lower()  # Get the extension in lowercase
+if uploaded_files:
+    all_sheets = {}  # Dictionary to store sheets from all files
 
-    # Check if it's a CSV file and read it
-    if file_extension == ".csv":
-        df = pd.read_csv(uploaded_file)
-        sheets = {"Sheet1": df}
-    else:
-        sheets = pd.read_excel(uploaded_file, sheet_name=None)
+    for uploaded_file in uploaded_files:
+        sheets = process_file(uploaded_file)
+        
+        for sheet_name, df in sheets.items():
+            if sheet_name in all_sheets:
+                # If the sheet already exists, concatenate the data
+                all_sheets[sheet_name] = pd.concat([all_sheets[sheet_name], df], ignore_index=True)
+            else:
+                # If the sheet does not exist, add it to the dictionary
+                all_sheets[sheet_name] = df
 
-    # Sidebar for Sheet Selection
+
+    # Sidebar for Sheet Selection (optional)
     with st.sidebar:
-        sheet_names = list(sheets.keys())
+        sheet_names = list(all_sheets.keys())
         selected_sheet = st.selectbox("Select a Sheet", sheet_names)
-        df = sheets[selected_sheet]
+        df = all_sheets[selected_sheet]
 
     new_dfs, code = spreadsheet(df)
 else:
